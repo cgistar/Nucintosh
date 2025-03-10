@@ -2,8 +2,11 @@
 This is a quick and dirty repo for Intel NUC 8th gen Coffee Lake models. I've used various sources (see credits) to build my EFI and did quite some testing. It should leave you with a stable and reliable build but as always, these things are never really finished. Compatible with macOS Mojave, Catalina, Big Sur, Monterey, Ventura and Sonoma.
 
 # Please note that from the 9th of March 2024 the assumed installation target will be Sonoma 14.4+
+You can still install on older versions, just swap out ```AirportItlwm.kext``` with the one matching your target version from the ```Stuff``` folder on the repo.
+
 ## Sonoma PSA:
-Broadcom users need to use OCLP and will no longer run vanilla macOS as security features have to be disabled and the root filesystem will be patched and no longer sealed. Please refer to [this issue](https://github.com/zearp/Nucintosh/issues/139) to get Broadcom working again. My goal is to run vanilla macOS not modify it in any way. Ventura will keep receiving security updates for at least a few more years. So if you want to leave security features enabled stay on Ventura for now. Stock NUCs are not affected.
+Broadcom users need to use OCLP starting with Sonoma and newer and will no longer run vanilla macOS as security features have to be disabled and the root filesystem will be patched and no longer sealed. Please refer to [this issue](https://github.com/zearp/Nucintosh/issues/139) to get Broadcom working again. My goal is to run vanilla macOS not modify it in any way. Ventura will keep receiving security updates for at least a few more years. So if you want to leave security features enabled stay on Ventura for now. Stock NUCs are not affected.
+
 ## Older macOS notes:
 The EFI should work fine for earlier versions too but will require different kexts for the Intel wireless card. Replace AirportItlwm.kext with one matching your macOS version from the [stuff](https://github.com/zearp/Nucintosh/tree/master/Stuff) folder. Use the snapshot function in ProperTree to easily update the config once you made the kext swaps. If you encounter bluetooth issues on versions prior to Monterey you may also have to replace BlueToolFixup.kext with IntelBluetoothInjector.kext -- the kexts can be found in the "stuff" folder on the repo. Good luck!
 
@@ -260,6 +263,14 @@ Received my [Akasa](http://www.akasa.com.tw/search.php?seed=A-NUC45-M1B) case. T
 It works really well. So good I have set the power setting in the BIOS to max performance. It idles around 35-40c (with undervolt) which is just fine considering my ambient temperature is around 25c. When put under load it doesn't get anywhere near 80c. I've ran the matrix test from ```stress-ng``` for a while and it stayed [stable around 70c](https://github.com/zearp/Nucintosh/blob/master/Stuff/passive_cooling.png) the whole test.
 
 My only complaint is the rough finish. I wish they would've skipped on those cheeks and spend the money saved on a smooth finish, but thats besides the point of this thing. The silence is worth the occasional scratch.
+
+### Pin computer/hostname
+```
+sudo scutil --set HostName nucintosh
+sudo scutil --set LocalHostName nucintosh
+sudo scutil --set ComputerName nucintosh
+dscacheutil -flushcache
+```
 
 ## Todo
 + Where possible further optimisations and ThunderBolt hot-plug support
